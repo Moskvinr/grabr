@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrabrReplica.Common", "GrabrReplica.Common\GrabrReplica.Common.csproj", "{DEC06E82-910E-4620-AC64-AB0BD47851E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrabrReplica.Application", "GrabrReplica.Application\GrabrReplica.Application.csproj", "{C93617FA-A568-49F9-9854-AB84D09709D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrabrReplica.Domain", "GrabrReplica.Domain\GrabrReplica.Domain.csproj", "{F6B85273-F19E-484C-B453-8E71610E251E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrabrReplica.Infrastructure", "GrabrReplica.Infrastructure\GrabrReplica.Infrastructure.csproj", "{8D9481E7-3644-481E-B854-CF507332AB7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrabrReplica.Persistance", "GrabrReplica.Persistance\GrabrReplica.Persistance.csproj", "{EB3CCECF-E4F6-4FEF-B7D7-73B3D204F1FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrabrReplica.Web", "GrabrReplica.Web\GrabrReplica.Web.csproj", "{6059153E-EB07-4684-AB1A-5BA9450971AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEC06E82-910E-4620-AC64-AB0BD47851E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEC06E82-910E-4620-AC64-AB0BD47851E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEC06E82-910E-4620-AC64-AB0BD47851E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC06E82-910E-4620-AC64-AB0BD47851E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C93617FA-A568-49F9-9854-AB84D09709D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C93617FA-A568-49F9-9854-AB84D09709D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C93617FA-A568-49F9-9854-AB84D09709D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C93617FA-A568-49F9-9854-AB84D09709D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6B85273-F19E-484C-B453-8E71610E251E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6B85273-F19E-484C-B453-8E71610E251E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6B85273-F19E-484C-B453-8E71610E251E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6B85273-F19E-484C-B453-8E71610E251E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D9481E7-3644-481E-B854-CF507332AB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D9481E7-3644-481E-B854-CF507332AB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D9481E7-3644-481E-B854-CF507332AB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D9481E7-3644-481E-B854-CF507332AB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB3CCECF-E4F6-4FEF-B7D7-73B3D204F1FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB3CCECF-E4F6-4FEF-B7D7-73B3D204F1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB3CCECF-E4F6-4FEF-B7D7-73B3D204F1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB3CCECF-E4F6-4FEF-B7D7-73B3D204F1FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6059153E-EB07-4684-AB1A-5BA9450971AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6059153E-EB07-4684-AB1A-5BA9450971AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6059153E-EB07-4684-AB1A-5BA9450971AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6059153E-EB07-4684-AB1A-5BA9450971AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {32A959CF-B174-40DA-95FB-6BA0B3AEBDBB}
+	EndGlobalSection
+EndGlobal
