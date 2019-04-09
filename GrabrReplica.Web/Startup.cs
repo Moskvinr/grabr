@@ -2,6 +2,7 @@
 using FluentValidation.AspNetCore;
 using GrabrReplica.Application.Infrastructure;
 using GrabrReplica.Application.Modules.Account.Commands.RegisterAccountCommand;
+using GrabrReplica.Common;
 using GrabrReplica.Domain.Entities;
 using GrabrReplica.Infrastructure;
 using GrabrReplica.Infrastructure.Notifications;
@@ -81,14 +82,16 @@ namespace GrabrReplica.Web
 
         private void AddAuthOptionsConfiguration(IServiceCollection services)
         {
-
+            var authOptions = new AuthOptions();
+            Configuration.Bind("AuthOptions", authOptions);
+            services.AddSingleton(authOptions);
         }
 
         private void AddEmailSettingsConfiguration(IServiceCollection services)
         {
-            var _emailSettings = new EmailSettings();
-            Configuration.Bind("EmailSettings", _emailSettings);
-            services.AddSingleton(_emailSettings);
+            var emailSettings = new EmailSettings();
+            Configuration.Bind("EmailSettings", emailSettings);
+            services.AddSingleton(emailSettings);
         }
 
         private void ConfigureIdentity(IServiceCollection services)

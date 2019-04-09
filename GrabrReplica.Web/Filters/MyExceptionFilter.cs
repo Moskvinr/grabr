@@ -26,7 +26,7 @@ namespace GrabrReplica.Web.Filters
 
             var code = HttpStatusCode.InternalServerError;
 
-            if (context.Exception is NotFoundException)
+            if (context.Exception is NotFoundException || context.Exception is EntityExistsException)
             {
                 code = HttpStatusCode.NotFound;
             }
