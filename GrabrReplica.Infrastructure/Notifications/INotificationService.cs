@@ -1,22 +1,22 @@
 ﻿using GrabrReplica.Infrastructure.Notifications.Models;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
 namespace GrabrReplica.Infrastructure.Notifications
 {
     public abstract class INotificationService
     {
         protected readonly EmailSettings _emailSettings;
+        protected readonly IConfiguration _configuration;
         protected readonly IEmailMessageGenerator _emailMessageGenerator;
 
-        public INotificationService(EmailSettings emailSettings, IEmailMessageGenerator emailMessageGenerator)
+        public INotificationService(IOptions<EmailSettings> emailSettings, IEmailMessageGenerator emailMessageGenerator)
         {
+            _emailSettings = emailSettings.Value;
             _emailMessageGenerator = emailMessageGenerator;
-            _emailSettings = emailSettings;
         }
 
         protected async Task Send(Message message)

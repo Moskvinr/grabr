@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using GrabrReplica.Domain.Entities;
@@ -8,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using GrabrReplica.Infrastructure.Notifications;
+using Microsoft.Extensions.Configuration;
 
 namespace GrabrReplica.Application.Modules.Account.Commands
 {

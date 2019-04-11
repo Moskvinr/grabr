@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand;
+using GrabrReplica.Application.Modules.Account.Commands.RegisterAccountCommand;
+using GrabrReplica.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -10,17 +13,21 @@ namespace GrabrReplica.Application.Infrastructure.AutoMapper
     {
         public AutoMapperProfile()
         {
-            LoadStandardMappings();
+            // LoadStandardMappings();
+            CreateMap<LoginAccountCommand, User>();
+            CreateMap<User, LoginAccountCommand>();
+            CreateMap<RegisterAccountCommand, User>();
+            CreateMap<User, RegisterAccountCommand>();
         }
 
-        private void LoadStandardMappings()
-        {
-            var mapsFrom = MapperProfileHelper.LoadStandardMappings(Assembly.GetExecutingAssembly());
+        //private void LoadStandardMappings()
+        //{
+        //    var mapsFrom = MapperProfileHelper.LoadStandardMappings(Assembly.GetExecutingAssembly());
 
-            foreach (var map in mapsFrom)
-            {
-                CreateMap(map.Source, map.Destination).ReverseMap();
-            }
-        }
+        //    foreach (var map in mapsFrom)
+        //    {
+        //        CreateMap(map.Source, map.Destination).ReverseMap();
+        //    }
+        //}
     }
 }

@@ -33,8 +33,7 @@ namespace GrabrReplica.Application.Modules.Account.Commands.RegisterAccountComma
         {
             var checkIfExist = _dbContext
                 .Users
-                .Where(x => x.Email == request.Email || x.UserName == request.UserName)
-                .FirstOrDefault();
+                .FirstOrDefault(x => x.Email == request.Email || x.UserName == request.UserName);
             if (checkIfExist != null)
                 throw new EntityExistsException(nameof(User), checkIfExist.Id, "There is existing user with same email or username");
 

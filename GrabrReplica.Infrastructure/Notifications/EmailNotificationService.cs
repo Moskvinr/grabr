@@ -1,4 +1,6 @@
 ﻿using GrabrReplica.Infrastructure.Notifications.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +10,7 @@ namespace GrabrReplica.Infrastructure.Notifications
 {
     public class EmailNotificationService : INotificationService
     {
-        public EmailNotificationService(EmailSettings emailSettings, IEmailMessageGenerator emailMessageGenerator) : base(emailSettings, emailMessageGenerator) { }
+        public EmailNotificationService(IOptions<EmailSettings> emailSettings, IEmailMessageGenerator emailMessageGenerator) : base(emailSettings, emailMessageGenerator) { }
 
         public async override Task SendConfirmationLinkAsync(string email, string id, string confirmLink)
         {

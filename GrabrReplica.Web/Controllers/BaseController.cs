@@ -12,9 +12,9 @@ namespace GrabrReplica.Web.Controllers
     [ApiController]
     public abstract class BaseController : ControllerBase
     {
-        protected IMediator _mediator;
+        protected readonly IMediator _mediator;
 
-        public BaseController(IMediator mediator)
+        protected BaseController(IMediator mediator)
         {
             _mediator = mediator;
         }

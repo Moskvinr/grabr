@@ -8,16 +8,18 @@ using GrabrReplica.Infrastructure.Notifications;
 using GrabrReplica.Persistance;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Options;
 
 namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
 {
@@ -25,9 +27,17 @@ namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
     {
         private readonly AuthOptions _authOptions;
 
-        public LoginAccountCommandHandler(AuthOptions authOptions, ApplicationDbContext dbContext, UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, IMapper mapper, IMediator mediator, INotificationService notificationService) : base(dbContext, userManager, signInManager, configuration, mapper, mediator, notificationService)
+        public LoginAccountCommandHandler(
+            IOptions<AuthOptions> authOptions,
+            ApplicationDbContext dbContext,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            Microsoft.Extensions.Configuration.IConfiguration configuration,
+            IMapper mapper,
+            IMediator mediator,
+            INotificationService notificationService) : base(dbContext, userManager, signInManager, configuration, mapper, mediator, notificationService)
         {
-            _authOptions = authOptions;
+            _authOptions = authOptions.Value;
         }
 
         public async Task<string> Handle(LoginAccountCommand request, CancellationToken cancellationToken)
@@ -35,7 +45,7 @@ namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null)
             {
-                throw new EntityNotExistsException(nameof(User), null, "There is existing user with same email or username");
+                throw new EntityNotExistsException(nameof(User), null, "User not exists");
             }
 
             var identity = GetIdentity(user);
@@ -83,13 +93,13 @@ namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
                     UserName = identity.Name,
                     FirstName = identity.Claims
                                 .FirstOrDefault(x => x.Type == "FirstName")
-                                .Value,
+                                ?.Value,
                     SecondName = identity.Claims
                                 .FirstOrDefault(x => x.Type == "SecondName")
-                                .Value,
+                                ?.Value,
                     UserId = identity.Claims
                                 .FirstOrDefault(x => x.Type == "UserId")
-                                .Value
+                                ?.Value
                 }
             };
 

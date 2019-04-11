@@ -42,9 +42,15 @@ namespace GrabrReplica.Web
 
             ConfigureAuthorization(services);
             ConfigureAuthentication(services);
-
+            var st = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
             services.AddTransient<INotificationService, EmailNotificationService>();
             services.AddTransient<IEmailMessageGenerator, EmailMessageGenerator>();
+            services.Configure<EmailSettings>(options => Configuration.GetSection("EmailSettings").Bind(options));
+            services.Configure<AuthOptions>(options => Configuration.GetSection("AuthOptions").Bind(options));
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
@@ -52,8 +58,6 @@ namespace GrabrReplica.Web
 
             services.AddSingleton(Configuration);
             ConfigureIdentity(services);
-            AddEmailSettingsConfiguration(services);
-            AddAuthOptionsConfiguration(services);
 
             services.AddMvc(options =>
             {
@@ -61,7 +65,7 @@ namespace GrabrReplica.Web
                 options.Filters.Add(typeof(ModelStateGlobalValidator));
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterAccountCommandValidator>()); ;
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterAccountCommandValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,26 +81,13 @@ namespace GrabrReplica.Web
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseMvc();
-        }
-
-        private void AddAuthOptionsConfiguration(IServiceCollection services)
-        {
-            var authOptions = new AuthOptions();
-            Configuration.Bind("AuthOptions", authOptions);
-            services.AddSingleton(authOptions);
-        }
-
-        private void AddEmailSettingsConfiguration(IServiceCollection services)
-        {
-            var emailSettings = new EmailSettings();
-            Configuration.Bind("EmailSettings", emailSettings);
-            services.AddSingleton(emailSettings);
         }
 
         private void ConfigureIdentity(IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole>(options => { options.SignIn.RequireConfirmedEmail = true; })
+            services.AddIdentity<User, IdentityRole>(options => { options.SignIn.RequireConfirmedEmail = false; })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
