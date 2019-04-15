@@ -34,7 +34,7 @@ namespace GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordUpader
             var user = await _userManager.FindByIdAsync(request.UserId);
             if (user == null)
             {
-                throw new EntityNotExistsException(nameof(User), user, "User not exists");
+                throw new EntityNotExistsException(nameof(User), null, "User not exists");
             }
 
             await _userManager.ResetPasswordAsync(user, request.Token, request.NewPassword);

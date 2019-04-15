@@ -35,7 +35,13 @@ namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
             Microsoft.Extensions.Configuration.IConfiguration configuration,
             IMapper mapper,
             IMediator mediator,
-            INotificationService notificationService) : base(dbContext, userManager, signInManager, configuration, mapper, mediator, notificationService)
+            INotificationService notificationService) : base(dbContext,
+            userManager,
+            signInManager,
+            configuration,
+            mapper,
+            mediator,
+            notificationService)
         {
             _authOptions = authOptions.Value;
         }
@@ -58,6 +64,7 @@ namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
             var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
+                    //new Claim(ClaimsIdentity.DefaultRoleClaimType, user.) Роль
                     new Claim("FirstName", user.FirstName),
                     new Claim("SecondName", user.SecondName),
                     new Claim("UserId", user.Id)
