@@ -49,33 +49,39 @@ namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
         public async Task<string> Handle(LoginAccountCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null)
+            var passwordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
+            if (user == null || !passwordCorrect)
             {
                 throw new EntityNotExistsException(nameof(User), null, "User not exists");
             }
 
             var identity = GetIdentity(user);
 
-            return JsonConvert.SerializeObject(GetToken(identity), new JsonSerializerSettings { Formatting = Formatting.Indented });
+            return JsonConvert.SerializeObject(GetToken(identity),
+                new JsonSerializerSettings {Formatting = Formatting.Indented});
         }
 
         private ClaimsIdentity GetIdentity(User user)
         {
             var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
-                    //new Claim(ClaimsIdentity.DefaultRoleClaimType, user.) Роль
-                    new Claim("FirstName", user.FirstName),
-                    new Claim("SecondName", user.SecondName),
-                    new Claim("UserId", user.Id)
-                };
-            ClaimsIdentity claimsIdentity =
-            new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
+                new Claim("FirstName", user.FirstName),
+                new Claim("SecondName", user.SecondName),
+                new Claim("UserId", user.Id)
+            };
+
+            var userRoles = _userManager.GetRolesAsync(user).GetAwaiter().GetResult().ToList();
+            userRoles.ForEach(x => claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, x)));
+
+            var claimsIdentity =
+                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                    ClaimsIdentity.DefaultRoleClaimType);
             if (claimsIdentity == null)
             {
                 throw new NotFoundException(nameof(ClaimsIdentity), claimsIdentity);
             }
+
             return claimsIdentity;
         }
 
@@ -83,13 +89,14 @@ namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
         {
             var now = DateTime.UtcNow;
             var jwt = new JwtSecurityToken(
-                    issuer: _authOptions.Issuer,
-                    audience: _authOptions.Audience,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(Convert.ToDouble(_authOptions.LifeTime))),
-                    signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_authOptions.SecretKey)),
-                                                               SecurityAlgorithms.HmacSha256));
+                issuer: _authOptions.Issuer,
+                audience: _authOptions.Audience,
+                notBefore: now,
+                claims: identity.Claims,
+                expires: now.Add(TimeSpan.FromMinutes(Convert.ToDouble(_authOptions.LifeTime))),
+                signingCredentials: new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_authOptions.SecretKey)),
+                    SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             return new TokenModel
@@ -99,18 +106,20 @@ namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
                 {
                     UserName = identity.Name,
                     FirstName = identity.Claims
-                                .FirstOrDefault(x => x.Type == "FirstName")
-                                ?.Value,
+                        .FirstOrDefault(x => x.Type == "FirstName")
+                        ?.Value,
                     SecondName = identity.Claims
-                                .FirstOrDefault(x => x.Type == "SecondName")
-                                ?.Value,
+                        .FirstOrDefault(x => x.Type == "SecondName")
+                        ?.Value,
                     UserId = identity.Claims
-                                .FirstOrDefault(x => x.Type == "UserId")
-                                ?.Value
+                        .FirstOrDefault(x => x.Type == "UserId")
+                        ?.Value,
+                    UserRoles = identity.Claims
+                        .Where(c => c.Type == ClaimsIdentity.DefaultRoleClaimType)
+                        .Select(x => x.Value)
+                        .ToArray()
                 }
             };
-
         }
-
     }
 }

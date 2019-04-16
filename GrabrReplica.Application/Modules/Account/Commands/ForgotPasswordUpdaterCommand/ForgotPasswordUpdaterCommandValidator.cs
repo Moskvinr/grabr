@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordUpaderCommand
+namespace GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordUpdaterCommand
 {
-    public class ForgotPasswordUpaderCommandValidator : AbstractValidator<ForgotPasswordUpaderCommand>
+    public class ForgotPasswordUpdaterCommandValidator : AbstractValidator<ForgotPasswordUpdaterCommand>
     {
-        public ForgotPasswordUpaderCommandValidator()
+        public ForgotPasswordUpdaterCommandValidator()
         {
             RuleFor(u => u.UserId).NotNull().NotEmpty();
             RuleFor(t => t.Token).NotNull().NotEmpty();

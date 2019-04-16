@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using GrabrReplica.Common;
+using GrabrReplica.Web.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GrabrReplica.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [JwtAuthorize(Roles = UserRoleNames.User)]
     public class ValuesController : ControllerBase
     {
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] {"value1", "value2"};
         }
 
         // GET api/values/5

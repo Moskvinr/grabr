@@ -12,5 +12,7 @@ namespace GrabrReplica.Domain.Entities
         public string FirstName { get; set; }
         [Required]
         public string SecondName { get; set; }
+        
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

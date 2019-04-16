@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GrabrReplica.Common\GrabrReplica.Common.csproj" />
     <ProjectReference Include="..\GrabrReplica.Domain\GrabrReplica.Domain.csproj" />
   </ItemGroup>
 </Project>

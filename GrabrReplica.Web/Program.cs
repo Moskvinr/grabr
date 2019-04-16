@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using GrabrReplica.Domain.Entities;
 using GrabrReplica.Persistance;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +28,9 @@ namespace GrabrReplica.Web
                 {
                     var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
                     context.Database.Migrate();
+
+                    var roleManager = scope.ServiceProvider.GetService<RoleManager<Role>>();
+                    ApplicationDbInitializer.Initialize(context, roleManager);
                 }
                 catch (Exception ex)
                 {

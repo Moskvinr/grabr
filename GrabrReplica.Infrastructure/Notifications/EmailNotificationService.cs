@@ -12,19 +12,19 @@ namespace GrabrReplica.Infrastructure.Notifications
     {
         public EmailNotificationService(IOptions<EmailSettings> emailSettings, IEmailMessageGenerator emailMessageGenerator) : base(emailSettings, emailMessageGenerator) { }
 
-        public async override Task SendConfirmationLinkAsync(string email, string id, string confirmLink)
+        public override async Task SendConfirmationLinkAsync(string email, string id, string confirmLink)
         {
             var message = _emailMessageGenerator.GenerateConfirmationMessage(email, id, confirmLink);
             await base.Send(message);
         }
 
-        public async override Task SendForgotPasswordLinkAsync(string email, string id, string confirmLink)
+        public override async Task SendForgotPasswordLinkAsync(string email, string id, string confirmLink)
         {
             var message = _emailMessageGenerator.GenerateForgotPasswordMessage(email, id, confirmLink);
             await base.Send(message);
         }
 
-        public async override Task SendResetPasswordLinkAsync(string email, string id, string confirmLink)
+        public override async Task SendResetPasswordLinkAsync(string email, string id, string confirmLink)
         {
             var message = _emailMessageGenerator.GenerateResetPasswordMessage(email, id, confirmLink);
             await base.Send(message);

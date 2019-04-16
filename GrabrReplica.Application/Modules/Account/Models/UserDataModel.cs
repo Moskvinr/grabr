@@ -10,5 +10,6 @@ namespace GrabrReplica.Application.Modules.Account.Models
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string UserId { get; set; }
+        public string[] UserRoles { get; set; }
     }
 }

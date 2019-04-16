@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using GrabrReplica.Application.Modules.Account.Commands.ChangePasswordCommand;
 using GrabrReplica.Application.Modules.Account.Commands.ConfirmEmailCommand;
 using GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordCommand;
-using GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordUpaderCommand;
+using GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordUpdaterCommand;
 using GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand;
 using GrabrReplica.Application.Modules.Account.Commands.RegisterAccountCommand;
 using GrabrReplica.Application.Modules.Account.Queries.ConfirmEmailQuery;
@@ -58,7 +58,7 @@ namespace GrabrReplica.Web.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordUpaderCommand command)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordUpdaterCommand command)
         {
             return await SendMediatorRequst(command);
         }

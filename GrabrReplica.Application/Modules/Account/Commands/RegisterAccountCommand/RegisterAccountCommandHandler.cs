@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using GrabrReplica.Common;
 using GrabrReplica.Infrastructure.Notifications;
 
 namespace GrabrReplica.Application.Modules.Account.Commands.RegisterAccountCommand
@@ -19,15 +20,17 @@ namespace GrabrReplica.Application.Modules.Account.Commands.RegisterAccountComma
             ApplicationDbContext dbContext,
             UserManager<User> userManager,
             IMapper mapper,
-            IMediator mediator, 
-            INotificationService notificationService) 
+            IMediator mediator,
+            INotificationService notificationService)
             : base(dbContext,
-                  userManager, 
-                  null, 
-                  null,
-                  mapper, 
-                  mediator, 
-                  notificationService) { }
+                userManager,
+                null,
+                null,
+                mapper,
+                mediator,
+                notificationService)
+        {
+        }
 
         public async Task<Unit> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
         {
@@ -38,8 +41,9 @@ namespace GrabrReplica.Application.Modules.Account.Commands.RegisterAccountComma
                 throw new EntityExistsException(nameof(User), checkIfExist.Id, "There is existing user with same email or username");
 
             var user = _mapper.Map<User>(request);
-            await _userManager.CreateAsync(user);
+            await _userManager.CreateAsync(user, request.Password);
             user = await _userManager.FindByEmailAsync(request.Email);
+            await _userManager.AddToRoleAsync(user, UserRoleNames.User);
             await _notificationService.SendConfirmationLinkAsync(user.Email, user.Id, await _userManager.GenerateEmailConfirmationTokenAsync(user));
 
             return Unit.Value;

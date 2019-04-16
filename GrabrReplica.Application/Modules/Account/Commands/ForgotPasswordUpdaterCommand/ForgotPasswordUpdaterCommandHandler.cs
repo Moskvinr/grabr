@@ -9,11 +9,11 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
-namespace GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordUpaderCommand
+namespace GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordUpdaterCommand
 {
-    public class ForgotPasswordUpaderCommandHandler : BaseAccountCommand, IRequestHandler<ForgotPasswordUpaderCommand>
+    public class ForgotPasswordUpdaterCommandHandler : BaseAccountCommand, IRequestHandler<ForgotPasswordUpdaterCommand>
     {
-        public ForgotPasswordUpaderCommandHandler(ApplicationDbContext dbContext,
+        public ForgotPasswordUpdaterCommandHandler(ApplicationDbContext dbContext,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IConfiguration configuration,
@@ -29,7 +29,7 @@ namespace GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordUpader
         {
         }
 
-        public async Task<Unit> Handle(ForgotPasswordUpaderCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ForgotPasswordUpdaterCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByIdAsync(request.UserId);
             if (user == null)

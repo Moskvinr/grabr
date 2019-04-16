@@ -1,8 +1,8 @@
 using MediatR;
 
-namespace GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordUpaderCommand
+namespace GrabrReplica.Application.Modules.Account.Commands.ForgotPasswordUpdaterCommand
 {
-    public class ForgotPasswordUpaderCommand : IRequest
+    public class ForgotPasswordUpdaterCommand : IRequest
     {
         public string UserId { get; set; }
         public string Token { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,7 +10,7 @@ using System.Text;
 namespace GrabrReplica.Persistance.Infrastructure
 {
     public abstract class DesignTimeDbContextFactoryBase<TContext> :
-        IDesignTimeDbContextFactory<TContext> where TContext : DbContext
+        IDesignTimeDbContextFactory<TContext> where TContext : IdentityDbContext
     {
         private const string ConnectionStringName = "DefaultConnection";
         private const string AspNetCoreEnvironment = "ASPNETCORE_ENVIRONMENT";
