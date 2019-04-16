@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Configuration\EmailMessages" />
+    <Compile Remove="Configuration\EmailMessages\**" />
+    <EmbeddedResource Remove="Configuration\EmailMessages\**" />
+    <None Remove="Configuration\EmailMessages\**" />
   </ItemGroup>
 
 </Project>
