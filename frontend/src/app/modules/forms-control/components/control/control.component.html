@@ -1,0 +1,5 @@
+<div [ngClass]="elClassNames" class="form-group">
+  <ng-content></ng-content>
+  <app-errors-list [control]="control" [messages]="errorMessages">
+  </app-errors-list>
+</div>

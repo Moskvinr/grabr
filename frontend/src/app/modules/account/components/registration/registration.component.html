@@ -1,0 +1,34 @@
+<div class="container">
+  <form [formGroup]="registerForm" (ngSubmit)="submit()">
+    <app-control [control]="registerForm.get('email')" [errorMessages]="validationMessages.email">
+      <app-label [asRequired]="isRequired('email')" [attrFor]="'email'">Почта</app-label>
+      <input formControlName="email" type="email" placeholder="e-mail" class="form-control">
+    </app-control>
+    <app-control [control]="registerForm.get('userName')" [errorMessages]="validationMessages.userName">
+      <app-label [asRequired]="isRequired('userName')" [attrFor]="'userName'">Логин</app-label>
+      <input formControlName="userName" type="text" placeholder="Логин" class="form-control">
+    </app-control>
+    <app-control [control]="registerForm.get('firstName')" [errorMessages]="validationMessages.firstName">
+      <app-label [asRequired]="isRequired('firstName')" [attrFor]="'firstName'">Имя</app-label>
+      <input formControlName="firstName" type="text" placeholder="Имя" class="form-control">
+    </app-control>
+    <app-control [control]="registerForm.get('secondName')" [errorMessages]="validationMessages.secondName">
+      <app-label [asRequired]="isRequired('secondName')" [attrFor]="'secondName'">Фамилия</app-label>
+      <input formControlName="secondName" type="text" placeholder="Фамилия" class="form-control">
+    </app-control>
+    <app-control [control]="registerForm.get('password')" [errorMessages]="validationMessages.password">
+      <app-label [asRequired]="isRequired('password')" [attrFor]="'password'">Пароль</app-label>
+      <input formControlName="password" type="password" placeholder="Пароль" class="form-control">
+      <small class="text-muted">
+        Must be 8-20 characters long.
+      </small>
+    </app-control>
+    <app-control [control]="registerForm.get('confirmPassword')" [errorMessages]="validationMessages.confirmPassword">
+      <app-label [asRequired]="isRequired('confirmPassword')" [attrFor]="'confirmPassword'">Повторите пароль</app-label>
+      <input formControlName="confirmPassword" type="password" placeholder="Повторите пароль" class="form-control">
+    </app-control>
+    <button type="submit" class="btn btn-success" >
+      Зарегестрироваться
+    </button>
+  </form>
+</div>

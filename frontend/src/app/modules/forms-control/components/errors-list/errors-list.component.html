@@ -1,0 +1,5 @@
+<app-error *ngFor="let errorMessage of control.errors | errorMessages:messages" 
+  [styles]="styles"
+  [classNames]="classNames">
+  {{ errorMessage }}
+</app-error>
