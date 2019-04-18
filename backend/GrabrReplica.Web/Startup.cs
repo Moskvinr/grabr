@@ -52,19 +52,24 @@ namespace GrabrReplica.Web
             ConfigureOptions(services);
 
             ConfigureInjection(services);
+            
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddMediatR(typeof(RegisterAccountCommandHandler).GetTypeInfo().Assembly);
 
             services.AddMvc(options =>
                 {
                     options.Filters.Add(typeof(MyExceptionFilterAttribute));
-                    options.Filters.Add(typeof(ModelStateGlobalValidator));
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(fv =>
                     fv.RegisterValidatorsFromAssemblyContaining<RegisterAccountCommandValidator>())
                 .AddJsonOptions(options =>
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
-
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
             services.AddCors();
             ConfigureIdentity(services);
         }
@@ -98,9 +103,6 @@ namespace GrabrReplica.Web
             services.AddTransient<INotificationService, EmailNotificationService>();
             services.AddTransient<IEmailMessageGenerator, EmailMessageGenerator>();
             services.AddTransient<IConfigurationHandler, ConfigurationHandler>();
-
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
             services.AddSingleton(Configuration);
         }

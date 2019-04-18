@@ -1,17 +1,6 @@
 <div class="container">
   <form [formGroup]="loginForm" (ngSubmit)="submit()">
-    <!-- <app-control [control]="loginForm.get('email')" [errorMessages]="validationMessages.email">
-      <app-label [asRequired]="isRequired('email')" [attrFor]="'email'">Почта</app-label>
-      <input formControlName="email" type="email" placeholder="e-mail" class="form-control">
-    </app-control>
-    <app-control [control]="loginForm.get('password')" [errorMessages]="validationMessages.password">
-      <app-label [asRequired]="isRequired('password')" [attrFor]="'password'">Пароль</app-label>
-      <input formControlName="password" type="password" placeholder="Пароль" class="form-control">
-    </app-control> -->
-    <mat-form-field>
-      <input formControlName="email" matInput type="email" placeholder="e-mail">
-      <!-- <app-material-error-list [errors]="validationMessages.email" [control]="loginForm.get('email')"></app-material-error-list> -->
-    </mat-form-field>
+    <formly-form [model]="model" [fields]="fields" [options]="options" [form]="loginForm"></formly-form>
     <button type="submit" mat-flat-button color="primary" [disabled]="!loginForm.valid">
       Войти
     </button>

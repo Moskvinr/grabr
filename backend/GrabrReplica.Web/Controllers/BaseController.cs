@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GrabrReplica.Web.Controllers
 {
@@ -12,11 +13,8 @@ namespace GrabrReplica.Web.Controllers
     [ApiController]
     public abstract class BaseController : ControllerBase
     {
-        protected readonly IMediator _mediator;
+        private IMediator _mediator;
 
-        protected BaseController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        protected IMediator Mediator => _mediator ?? (_mediator = HttpContext.RequestServices.GetService<IMediator>());
     }
 }

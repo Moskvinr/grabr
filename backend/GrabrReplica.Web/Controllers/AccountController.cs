@@ -17,55 +17,51 @@ namespace GrabrReplica.Web.Controllers
 {
     public class AccountController : BaseController
     {
-        public AccountController(IMediator mediator) : base(mediator)
-        {
-        }
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterAccountCommand command)
         {
-            return await SendMediatorRequst(command);
+            return await SendMediatorRequest(command);
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginAccountCommand command)
         {
-            return Ok(await _mediator.Send(command));
+            return Ok(await Mediator.Send(command));
         }
 
         [HttpPost]
         public async Task<IActionResult> ConfirmEmail(ConfirmEmailCommand command)
         {
-            return await SendMediatorRequst(command);
+            return await SendMediatorRequest(command);
         }
 
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(ConfirmEmailQuery query)
         {
-            return await SendMediatorRequst(query);
+            return await SendMediatorRequest(query);
         }
 
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordCommand command)
         {
-            return await SendMediatorRequst(command);
+            return await SendMediatorRequest(command);
         }
 
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordCommand command)
         {
-            return await SendMediatorRequst(command);
+            return await SendMediatorRequest(command);
         }
 
         [HttpPatch]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordUpdaterCommand command)
         {
-            return await SendMediatorRequst(command);
+            return await SendMediatorRequest(command);
         }
 
-        private async Task<IActionResult> SendMediatorRequst(IRequest request)
+        private async Task<IActionResult> SendMediatorRequest(IRequest request)
         {
-            await _mediator.Send(request);
+            await Mediator.Send(request);
             return NoContent();
         }
     }

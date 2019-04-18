@@ -20,5 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modules\Account\Queries\" />
+    <Folder Include="Modules\Models" />
+    <Folder Include="Modules\Profile\Commands" />
   </ItemGroup>
 </Project>

@@ -20,11 +20,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Options;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
 {
-    public class LoginAccountCommandHandler : BaseAccountCommand, IRequestHandler<LoginAccountCommand, TokenModel>
+    public class LoginAccountCommandHandler :  IRequestHandler<LoginAccountCommand, TokenModel>
     {
+        private readonly ApplicationDbContext _dbContext;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
+        private readonly INotificationService _notificationService;
         private readonly AuthOptions _authOptions;
 
         public LoginAccountCommandHandler(
@@ -35,14 +43,15 @@ namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
             Microsoft.Extensions.Configuration.IConfiguration configuration,
             IMapper mapper,
             IMediator mediator,
-            INotificationService notificationService) : base(dbContext,
-            userManager,
-            signInManager,
-            configuration,
-            mapper,
-            mediator,
-            notificationService)
+            INotificationService notificationService)
         {
+            _dbContext = dbContext;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _configuration = configuration;
+            _mapper = mapper;
+            _mediator = mediator;
+            _notificationService = notificationService;
             _authOptions = authOptions.Value;
         }
 

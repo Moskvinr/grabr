@@ -17,9 +17,10 @@ export class MaterialErrorListComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    this.value = this.control.valueChanges.subscribe(control => {
-      console.log(this.control);
+    this.value = this.control.valueChanges.subscribe(value => {
+      console.log(value);
       const validationErrors = this.control.errors as ValidationErrors;
+      console.log(validationErrors);
       console.log(this.errors);
     });
     // this.control.valueChanges.subscribe(control => {

@@ -1,0 +1,22 @@
+[
+    {
+        "name": "email",
+        "message": "неверный формат"
+    },
+    {
+        "name": "required",
+        "message": "Это поле обязательно для заполнения"
+    },
+    {
+        "name": "minlength",
+        "message": "Длина не меньше 8ми символов"
+    },
+    {
+        "name": "maxlength",
+        "message": "Длина не меньше 20ти символов"
+    },
+    {
+        "name": "passwordDifferent",
+        "message": "Пароли должны совпадать"
+    }
+]

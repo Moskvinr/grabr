@@ -4,8 +4,7 @@ import { FormGroup, FormBuilder, Validators, ValidationErrors } from '@angular/f
 import { AccountService } from '../../account.service';
 import { Router } from '@angular/router';
 import { Login } from '../../models/login.model';
-declare var require: any;
-const validationMessages = require('./validation.messages.json');
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-login',
@@ -14,34 +13,43 @@ const validationMessages = require('./validation.messages.json');
 })
 export class LoginComponent implements OnInit {
 
-  public loginForm: FormGroup;
-  public validationMessages = validationMessages;
-  private fieldsRequirement = {
-    email: true,
-    password: true
-  };
+  loginForm = new FormGroup({});
+  model: any = {};
+  options: FormlyFormOptions = {};
+  fields: FormlyFieldConfig[];
 
   constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) { }
 
   ngOnInit() {
     this.fillForm();
-    this.loginForm.controls['email'].valueChanges.subscribe(value => {
-      console.log(value);
-      const validationErrors = this.loginForm.controls['email'].errors as ValidationErrors;
-      console.log(validationErrors);
-      console.log(this.validationMessages.filter(e => e.name === 'email')[0]);
-    });
   }
 
   fillForm() {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
-    });
-  }
-
-  public isRequired(fieldName): boolean {
-    return this.fieldsRequirement[fieldName];
+    this.fields = [
+      {
+        key: 'email',
+        type: 'input',
+        templateOptions: {
+          label: 'email',
+          placeholder: 'Введите ваш email',
+          required: true,
+          type: 'email'
+        },
+        validators: {
+          validation: [Validators.email]
+        }
+      },
+      {
+        key: 'password',
+        type: 'input',
+        templateOptions: {
+          label: 'Пароль',
+          placeholder: 'Введите ваш пароль',
+          required: true,
+          type: 'password'
+        }
+      }
+    ];
   }
 
   submit() {

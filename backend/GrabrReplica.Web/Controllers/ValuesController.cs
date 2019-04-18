@@ -20,6 +20,10 @@ namespace GrabrReplica.Web.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            var req = this.Request;
+            var val = User.Claims.FirstOrDefault(x => x.Type == "UserId")?.Value;
+            string token = User.FindFirst("Token")?.Value;
+            var info = User;
             return new string[] {"value1", "value2"};
         }
 

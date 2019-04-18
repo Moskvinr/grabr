@@ -4,8 +4,7 @@ import { AccountService } from '../../account.service';
 import { Router } from '@angular/router';
 import { confirmPasswordValidator } from '../../validators/confirm-password-validator';
 import { Registration } from '../../models/registrations.model';
-declare var require: any;
-const validationMessages = require('./validation.messages.json');
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 @Component({
   selector: 'app-registration',
@@ -14,14 +13,10 @@ const validationMessages = require('./validation.messages.json');
 })
 export class RegistrationComponent implements OnInit {
 
-  public registerForm: FormGroup;
-  public validationMessages = validationMessages;
-  private fieldsRequirement = {
-    email: true,
-    userName: true,
-    password: true,
-    confirmPassword: true
-  };
+  registerForm: FormGroup = new FormGroup({});
+  model: any = {};
+  options: FormlyFormOptions = {};
+  fields: FormlyFieldConfig[];
 
   constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) { }
 
@@ -30,22 +25,80 @@ export class RegistrationComponent implements OnInit {
   }
 
   fillForm() {
-    this.registerForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      userName: ['', [Validators.required]],
-      firstName: [''],
-      secondName: [''],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
-    }, [confirmPasswordValidator]
-    );
-  }
-
-  public isRequired(fieldName): boolean {
-    return this.fieldsRequirement[fieldName];
+    this.fields = [
+      {
+        key: 'email',
+        type: 'input',
+        templateOptions: {
+          label: 'Ваша почта',
+          placeholder: 'Введите ваш email',
+          required: true,
+          type: 'email'
+        },
+        validators: {
+          validation: [Validators.email]
+        }
+      },
+      {
+        key: 'userName',
+        type: 'input',
+        templateOptions: {
+          label: 'Логин',
+          placeholder: 'Ваш логин',
+          required: true,
+          maxLength: 20
+        }
+      },
+      {
+        key: 'firstName',
+        type: 'input',
+        templateOptions: {
+          label: 'Имя',
+          placeholder: 'Ваше имя',
+          required: false,
+          maxLength: 20
+        }
+      },
+      {
+        key: 'secondName',
+        type: 'input',
+        templateOptions: {
+          label: 'Фамилия',
+          placeholder: 'Ваша фамилия',
+          required: false,
+          maxLength: 20
+        }
+      },
+      {
+        key: 'password',
+        type: 'input',
+        templateOptions: {
+          label: 'Пароль',
+          placeholder: 'Введите ваш пароль',
+          required: true,
+          type: 'password',
+          minLength: 8,
+          maxLength: 20
+        }
+      },
+      {
+        key: 'confirmPassword',
+        type: 'input',
+        templateOptions: {
+          label: 'Повторите пароль',
+          placeholder: 'Повторите введенный ранее пароль',
+          required: true,
+          type: 'password',
+          minLength: 8,
+          maxLength: 20
+        },
+        asyncValidators: { validation: [confirmPasswordValidator] }
+      }
+    ];
   }
 
   submit() {
+    console.log(this.registerForm);
     if (this.registerForm.valid) {
       const loginModel: Registration = Object.assign({}, this.registerForm.value);
       this.accountService.registration(loginModel).subscribe(() => {
