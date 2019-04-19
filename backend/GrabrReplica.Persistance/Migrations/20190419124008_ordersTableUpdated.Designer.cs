@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GrabrReplica.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190416132202_RolesAdded")]
-    partial class RolesAdded
+    [Migration("20190419124008_ordersTableUpdated")]
+    partial class ordersTableUpdated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,47 @@ namespace GrabrReplica.Persistance.Migrations
                 .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("GrabrReplica.Domain.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count");
+
+                    b.Property<string>("DeliveryManUserId");
+
+                    b.Property<int>("DeliveryStatus");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(300);
+
+                    b.Property<decimal>("FinalPrice");
+
+                    b.Property<bool>("IsConfirmed");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.Property<string>("OrderByUserId");
+
+                    b.Property<string>("ProductLink");
+
+                    b.Property<decimal>("ProductPrice");
+
+                    b.Property<decimal>("Reward");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeliveryManUserId");
+
+                    b.HasIndex("OrderByUserId");
+
+                    b.ToTable("Orders");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -230,6 +271,17 @@ namespace GrabrReplica.Persistance.Migrations
                     b.HasIndex("UserId1");
 
                     b.HasDiscriminator().HasValue("UserRole");
+                });
+
+            modelBuilder.Entity("GrabrReplica.Domain.Entities.Order", b =>
+                {
+                    b.HasOne("GrabrReplica.Domain.Entities.User", "DeliveryMan")
+                        .WithMany("OrdersDelivered")
+                        .HasForeignKey("DeliveryManUserId");
+
+                    b.HasOne("GrabrReplica.Domain.Entities.User", "OrderBy")
+                        .WithMany("UserOrders")
+                        .HasForeignKey("OrderByUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

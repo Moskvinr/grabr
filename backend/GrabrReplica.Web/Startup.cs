@@ -22,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
+using GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand;
 using GrabrReplica.Infrastructure.Configuration;
 using Newtonsoft.Json.Serialization;
 
@@ -45,31 +46,25 @@ namespace GrabrReplica.Web
             ConfigureAuthentication(services);
             ConfigureAuthorization(services);
 
+            ConfigureOptions(services);
+
+            ConfigureInjection(services);
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+            services.AddMediatR(typeof(RegisterAccountCommandHandler).GetTypeInfo().Assembly);
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            ConfigureOptions(services);
-
-            ConfigureInjection(services);
-            
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            services.AddMediatR(typeof(RegisterAccountCommandHandler).GetTypeInfo().Assembly);
-
-            services.AddMvc(options =>
-                {
-                    options.Filters.Add(typeof(MyExceptionFilterAttribute));
-                })
+            services.AddMvc(options => { options.Filters.Add(typeof(MyExceptionFilterAttribute)); })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(fv =>
-                    fv.RegisterValidatorsFromAssemblyContaining<RegisterAccountCommandValidator>())
+                    fv.RegisterValidatorsFromAssemblyContaining<LoginAccountCommandValidator>())
                 .AddJsonOptions(options =>
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
+            services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
             services.AddCors();
             ConfigureIdentity(services);
         }

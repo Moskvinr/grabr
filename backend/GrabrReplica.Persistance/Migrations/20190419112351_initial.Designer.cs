@@ -4,14 +4,16 @@ using GrabrReplica.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GrabrReplica.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190419112351_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +29,7 @@ namespace GrabrReplica.Persistance.Migrations
 
                     b.Property<int>("Count");
 
-                    b.Property<string>("DeliveryManUserId");
+                    b.Property<string>("DeliveryManId");
 
                     b.Property<int>("DeliveryStatus");
 
@@ -43,7 +45,7 @@ namespace GrabrReplica.Persistance.Migrations
                         .IsRequired()
                         .HasMaxLength(15);
 
-                    b.Property<string>("OrderByUserId");
+                    b.Property<string>("OrderById");
 
                     b.Property<string>("ProductLink");
 
@@ -53,9 +55,9 @@ namespace GrabrReplica.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliveryManUserId");
+                    b.HasIndex("DeliveryManId");
 
-                    b.HasIndex("OrderByUserId");
+                    b.HasIndex("OrderById");
 
                     b.ToTable("Orders");
                 });
@@ -275,11 +277,11 @@ namespace GrabrReplica.Persistance.Migrations
                 {
                     b.HasOne("GrabrReplica.Domain.Entities.User", "DeliveryMan")
                         .WithMany("OrdersDelivered")
-                        .HasForeignKey("DeliveryManUserId");
+                        .HasForeignKey("DeliveryManId");
 
                     b.HasOne("GrabrReplica.Domain.Entities.User", "OrderBy")
                         .WithMany("UserOrders")
-                        .HasForeignKey("OrderByUserId");
+                        .HasForeignKey("OrderById");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

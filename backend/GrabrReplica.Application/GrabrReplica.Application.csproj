@@ -19,8 +19,6 @@
     <ProjectReference Include="..\GrabrReplica.Persistance\GrabrReplica.Persistance.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modules\Account\Queries\" />
-    <Folder Include="Modules\Models" />
-    <Folder Include="Modules\Profile\Commands" />
+    <Folder Include="Modules\Order\Models" />
   </ItemGroup>
 </Project>

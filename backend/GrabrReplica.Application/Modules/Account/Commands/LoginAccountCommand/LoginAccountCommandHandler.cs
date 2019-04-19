@@ -58,12 +58,7 @@ namespace GrabrReplica.Application.Modules.Account.Commands.LoginAccountCommand
         public async Task<TokenModel> Handle(LoginAccountCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            var passwordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
-            if (user == null || !passwordCorrect)
-            {
-                throw new EntityNotExistsException(nameof(User), null, "User not exists");
-            }
-
+            
             var identity = GetIdentity(user);
 
             return GetToken(identity);

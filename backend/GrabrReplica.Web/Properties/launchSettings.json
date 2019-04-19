@@ -4,8 +4,8 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:50279",
-      "sslPort": 44372
+      "applicationUrl": "http://localhost:52467/",
+      "sslPort": 0
     }
   },
   "profiles": {
@@ -20,8 +20,7 @@
     "GrabrReplica.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "applicationUrl": "http://localhost:52468/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

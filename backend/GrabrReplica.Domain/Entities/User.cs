@@ -14,5 +14,8 @@ namespace GrabrReplica.Domain.Entities
         public string SecondName { get; set; }
         
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        
+        public virtual ICollection<Order> UserOrders { get; set; }
+        public virtual ICollection<Order> OrdersDelivered { get; set; }
     }
 }
