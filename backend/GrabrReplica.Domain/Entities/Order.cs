@@ -32,9 +32,22 @@ namespace GrabrReplica.Domain.Entities
             ProductLink = productLink ?? throw new ArgumentNullException(nameof(productLink));
             Reward = reward;
             DeliveryStatus = DeliveryStatus.Open;
-            FinalPrice = reward + productPrice;
             Count = count < 1 ? throw new ArgumentException(nameof(count)) : count;
             IsConfirmed = false;
+            FinalPrice = (reward + productPrice) * count;
+        }
+
+        public void UpdateOrder(string name, string description, decimal productPrice, string productLink,
+            decimal reward, int count)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Description = description ?? throw new ArgumentNullException(nameof(description));
+            ProductPrice = productPrice;
+            ProductLink = productLink ?? throw new ArgumentNullException(nameof(productLink));
+            Reward = reward;
+            DeliveryStatus = DeliveryStatus.Open;
+            Count = count < 1 ? throw new ArgumentException(nameof(count)) : count;
+            FinalPrice = (reward + productPrice) * count;
         }
 
         public void SetDeliver(User deliveryMan) =>
@@ -43,9 +56,11 @@ namespace GrabrReplica.Domain.Entities
         public void ChangeProductPrice(decimal productPrice)
         {
             ProductPrice = productPrice;
-            FinalPrice = productPrice + Reward;
+            FinalPrice = (Reward + productPrice) * Count;
         }
 
+        public void CloseDelivery() => DeliveryStatus = DeliveryStatus.Closed;
+        
         public void ConfirmOrder() => IsConfirmed = true;
 
         public void DeclineOrder() => IsConfirmed = false;

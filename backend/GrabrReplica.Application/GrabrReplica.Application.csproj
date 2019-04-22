@@ -18,7 +18,4 @@
     <ProjectReference Include="..\GrabrReplica.Infrastructure\GrabrReplica.Infrastructure.csproj" />
     <ProjectReference Include="..\GrabrReplica.Persistance\GrabrReplica.Persistance.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\Order\Models" />
-  </ItemGroup>
 </Project>

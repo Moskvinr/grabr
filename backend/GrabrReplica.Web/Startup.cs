@@ -67,6 +67,16 @@ namespace GrabrReplica.Web
             services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
             services.AddCors();
             ConfigureIdentity(services);
+
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "Grabr API";
+                    document.Info.Description = "Grabr replica application documentation";
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,6 +100,10 @@ namespace GrabrReplica.Web
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSwagger();
+            app.UseSwaggerUi3();
+
             app.UseMvc();
         }
 

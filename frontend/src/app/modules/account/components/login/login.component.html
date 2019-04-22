@@ -1,8 +1,6 @@
-<div class="container">
-  <form [formGroup]="loginForm" (ngSubmit)="submit()">
-    <formly-form [model]="model" [fields]="fields" [options]="options" [form]="loginForm"></formly-form>
-    <button type="submit" mat-flat-button color="primary" [disabled]="!loginForm.valid">
-      Войти
-    </button>
-  </form>
-</div>
+<form [formGroup]="loginForm" (ngSubmit)="submit()">
+  <formly-form [model]="model" [fields]="fields" [options]="options" [form]="loginForm"></formly-form>
+  <button type="submit" mat-flat-button color="primary" [disabled]="!loginForm.valid">
+    Войти
+  </button>
+</form>

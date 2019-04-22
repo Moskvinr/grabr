@@ -10,13 +10,14 @@ namespace GrabrReplica.Application.Modules.Order.Commands.DeleteOrderCommand
         public DeleteOrderCommandValidator(ApplicationDbContext dbContext)
         {
             RuleFor(x => x.OrderId).NotNull().NotEmpty();
-            RuleFor(x => x.OrderId).MustAsync(async (id, cancellation) =>
+            RuleFor(x => x).MustAsync(async (e, cancellation) =>
                 {
-                    var exist = await dbContext.Orders.AnyAsync(e => e.Id == id);
-                    return !exist;
+                    var order = await dbContext.Orders.FirstOrDefaultAsync(x => x.Id == e.OrderId);
+                    if (order == null)
+                        return false;
+                    return order.OrderByUserId == e.CreatorId;
                 })
-                .WithErrorCode(StatusCodes.Status400BadRequest.ToString())
-                .WithMessage($"Order not exist");
+                .WithErrorCode(StatusCodes.Status400BadRequest.ToString());
         }
     }
 }

@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using GrabrReplica.Application.Modules.Order.Models;
+using GrabrReplica.Application.Modules.Order.Queries;
+using GrabrReplica.Application.Modules.Profile.Models;
 
 namespace GrabrReplica.Application.Infrastructure.AutoMapper
 {
@@ -18,6 +21,12 @@ namespace GrabrReplica.Application.Infrastructure.AutoMapper
             CreateMap<User, LoginAccountCommand>();
             CreateMap<RegisterAccountCommand, User>();
             CreateMap<User, RegisterAccountCommand>();
+            CreateMap<OrderDto, Order>();
+            CreateMap<Order, OrderDto>();
+            CreateMap<User, OrderByDto>();
+            CreateMap<OrderByDto, User>();
+            CreateMap<ProfileDto, User>();
+            CreateMap<User, ProfileDto>();
         }
 
         //private void LoadStandardMappings()

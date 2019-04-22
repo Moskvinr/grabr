@@ -20,14 +20,9 @@ namespace GrabrReplica.Application.Modules.Order.Commands.UpdateOrderCommand
             var order = await _dbContext
                 .Orders
                 .FirstOrDefaultAsync(o => o.Id == request.OrderId, cancellationToken);
-            
-            order.Name = request.Name;
-            order.Description = request.Description;
-            order.OrderByUserId = request.CreatorId;
-            order.ProductPrice = request.ProductPrice;
-            order.ProductLink = request.ProductLink;
-            order.Reward = request.Reward;
-            order.Count = request.Count;
+
+            order.UpdateOrder(request.Name, request.Description, request.ProductPrice, request.ProductLink,
+                request.Reward, request.Count);
 
             _dbContext.Orders.Update(order);
 

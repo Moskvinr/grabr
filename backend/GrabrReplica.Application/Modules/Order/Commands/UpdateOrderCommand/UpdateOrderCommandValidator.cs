@@ -16,10 +16,12 @@ namespace GrabrReplica.Application.Modules.Order.Commands.UpdateOrderCommand
             RuleFor(x => x.ProductLink).NotNull().NotEmpty().MaximumLength(300);
             RuleFor(x => x).MustAsync(async (e, cancellation) =>
                 {
-                    return await dbContext.Orders.AnyAsync(x => x.Id == e.OrderId);
+                    var order = await dbContext.Orders.FirstOrDefaultAsync(x => x.Id == e.OrderId);
+                    if (order == null)
+                        return false;
+                    return order.OrderByUserId == e.CreatorId;
                 })
-                .WithErrorCode(StatusCodes.Status404NotFound.ToString())
-                .WithMessage("Order not found");
+                .WithErrorCode(StatusCodes.Status400BadRequest.ToString());
         }
     }
 }
