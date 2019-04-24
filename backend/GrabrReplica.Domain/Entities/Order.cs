@@ -50,17 +50,25 @@ namespace GrabrReplica.Domain.Entities
             FinalPrice = (reward + productPrice) * count;
         }
 
-        public void SetDeliver(User deliveryMan) =>
-            DeliveryMan = deliveryMan ?? throw new ArgumentNullException(nameof(deliveryMan));
-
-        public void ChangeProductPrice(decimal productPrice)
+        public void DeliverymanConfirm()
         {
-            ProductPrice = productPrice;
-            FinalPrice = (Reward + productPrice) * Count;
+            DeliveryStatus = DeliveryStatus == DeliveryStatus.CustomerConfirmed
+                ? DeliveryStatus.Closed
+                : DeliveryStatus.DeliverymanConfirmed;
         }
 
+        public void CustomerConfirm()
+        {
+            DeliveryStatus = DeliveryStatus == DeliveryStatus.DeliverymanConfirmed
+                ? DeliveryStatus.Closed
+                : DeliveryStatus.CustomerConfirmed;
+        }
+
+        public void SetDeliver(string deliveryMan) =>
+            DeliveryManUserId = deliveryMan ?? throw new ArgumentNullException(nameof(deliveryMan));
+
         public void CloseDelivery() => DeliveryStatus = DeliveryStatus.Closed;
-        
+
         public void ConfirmOrder() => IsConfirmed = true;
 
         public void DeclineOrder() => IsConfirmed = false;

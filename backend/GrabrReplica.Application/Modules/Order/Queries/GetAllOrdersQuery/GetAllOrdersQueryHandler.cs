@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using GrabrReplica.Application.Modules.Order.Models;
+using GrabrReplica.Domain.Enums;
 using GrabrReplica.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

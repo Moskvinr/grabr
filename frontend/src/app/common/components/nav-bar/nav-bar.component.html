@@ -2,7 +2,8 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async)">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>Grabr</mat-toolbar>
+    <mat-divider></mat-divider>
     <mat-nav-list>
       <a mat-list-item href="#">Link 1</a>
       <a mat-list-item href="#">Link 2</a>
@@ -16,11 +17,13 @@
       </button>
       <a [routerLink]="['/home']">frontend</a>
       <span class="spacer"></span>
-      <div *ngIf="!isAuth; else profile">
+      <div *ngIf="isAuth; else profile">
         <a [routerLink]="['account', 'login']">Войти</a>
       </div>
     </mat-toolbar>
-    <ng-content></ng-content>
+    <div class="center">
+      <ng-content></ng-content>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

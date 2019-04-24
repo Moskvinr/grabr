@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'home',
     redirectTo: ''
+  },
+  {
+    path: 'orders',
+    loadChildren: './orders/orders.module#OrdersModule'
   }
 ];
 

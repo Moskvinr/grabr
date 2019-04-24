@@ -9,7 +9,7 @@ using GrabrReplica.Application.Modules.Order.Queries.GetAllOrdersQuery;
 using GrabrReplica.Application.Modules.Order.Queries.GetOrderQuery;
 using GrabrReplica.Application.Modules.Order.Queries.GetUserOrdersQuery;
 using GrabrReplica.Common;
-using GrabrReplica.Domain.Entities;
+using GrabrReplica.Web.Extensions;
 using GrabrReplica.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +22,7 @@ namespace GrabrReplica.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateOrderCommand command)
         {
-            var id = User.Claims.FirstOrDefault(e => e.Type == "UserId")?.Value;
+            var id = HttpContext.GetUserId();
             command.CreatorId = id;
             return Ok(await Mediator.Send(command));
         }
@@ -31,7 +31,7 @@ namespace GrabrReplica.Web.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateOrderCommand command)
         {
             command.OrderId = id;
-            command.CreatorId = User.Claims.FirstOrDefault(e => e.Type == "UserId")?.Value;
+            command.CreatorId = HttpContext.GetUserId();
             await Mediator.Send(command);
 
             return NoContent();
@@ -42,7 +42,7 @@ namespace GrabrReplica.Web.Controllers
         {
             var command = new DeleteOrderCommand();
             command.OrderId = id;
-            command.CreatorId = User.Claims.FirstOrDefault(e => e.Type == "UserId")?.Value;
+            command.CreatorId = HttpContext.GetUserId();
             await Mediator.Send(command);
 
             return NoContent();

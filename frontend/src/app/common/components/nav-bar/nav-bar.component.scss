@@ -25,3 +25,23 @@
   color: white;
   text-decoration: none;
 }
+
+.center {
+  margin: auto;
+  width: 70%;
+  padding: 10px;
+  height: 1000px;
+}
+
+@media (max-width: 1000px) {
+  .center{
+      width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+    .center{
+        width: 100%;
+
+    }
+}
