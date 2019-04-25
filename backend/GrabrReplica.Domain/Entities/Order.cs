@@ -34,7 +34,7 @@ namespace GrabrReplica.Domain.Entities
             DeliveryStatus = DeliveryStatus.Open;
             Count = count < 1 ? throw new ArgumentException(nameof(count)) : count;
             IsConfirmed = false;
-            FinalPrice = (reward + productPrice) * count;
+            FinalPrice = productPrice * count + reward;
         }
 
         public void UpdateOrder(string name, string description, decimal productPrice, string productLink,
@@ -47,7 +47,7 @@ namespace GrabrReplica.Domain.Entities
             Reward = reward;
             DeliveryStatus = DeliveryStatus.Open;
             Count = count < 1 ? throw new ArgumentException(nameof(count)) : count;
-            FinalPrice = (reward + productPrice) * count;
+            FinalPrice = productPrice * count + reward;
         }
 
         public void DeliverymanConfirm()

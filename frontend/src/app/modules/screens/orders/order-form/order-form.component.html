@@ -1,0 +1,11 @@
+<form [formGroup]="orderForm" (ngSubmit)="submit($event)">
+  <formly-form [model]="model" [fields]="fields" [options]="options" [form]="orderForm"></formly-form>
+  <div class="center">
+    <button type="submit" mat-flat-button color="primary" [disabled]="!orderForm.valid">
+      Сохранить
+    </button>
+    <button type="button" mat-flat-button color="warn" (click)="cancelClicked($event)">
+      Отменить
+    </button>
+  </div>
+</form>

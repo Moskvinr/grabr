@@ -1,3 +1,4 @@
-<p>
-  edit-order works!
-</p>
+<div *ngIf="!loading">
+  <app-order-form [order]="order" (cancel)="cancel()" (success)="submit($event)">
+  </app-order-form>
+</div>

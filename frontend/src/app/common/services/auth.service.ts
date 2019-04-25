@@ -10,7 +10,6 @@ export class AuthService {
   constructor(private cookieService: CookieService) { }
 
   public get isAuth() {
-    const token = this.cookieService.get(AuthConstants.TokenName);
-    return token.length ? true : false;
+    return this.cookieService.get(AuthConstants.TokenName).length ? true : false;
   }
 }

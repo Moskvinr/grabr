@@ -12,6 +12,10 @@ const routes: Routes = [
     component: OrdersListComponent
   },
   {
+    path: 'new',
+    component: NewOrderComponent
+  },
+  {
     path: ':id',
     component: OrderDetailsComponent
   },
@@ -19,18 +23,10 @@ const routes: Routes = [
     path: 'edit/:id',
     component: EditOrderComponent
   },
-  {
-    path: 'new',
-    component: NewOrderComponent
-  }
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class OrdersRoutingModule { }

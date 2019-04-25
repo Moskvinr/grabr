@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'orders',
     loadChildren: './orders/orders.module#OrdersModule'
+  },
+  {
+    path: 'profile',
+    loadChildren: './profile/profile.module#ProfileModule'
   }
 ];
 
