@@ -1,8 +1,8 @@
-<button mat-flat-button color="primary" (click)="router.navigateByUrl('orders/new')">
-  Добавить заказ
-</button>
-<mat-card class="material-card" *ngFor="let order of orders | async">
-  <mat-card-header (click)="details(order.id)">
+<p>
+  Всего заказов: {{userOrders.length}}
+</p>
+<mat-card class="material-card" *ngFor="let order of userOrders">
+  <mat-card-header (click)="router.navigateByUrl('orders/' + order.id)">
     <div mat-card-avatar class="material-header-image"></div>
     <mat-card-title>{{order.name}}</mat-card-title>
     <mat-card-subtitle>Цена продукта:{{order.productPrice}}RUB, {{order.count}}шт. Вознагрождение: {{order.reward}}RUB
@@ -15,6 +15,6 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="details(order.id)">Детали</button>
+    <button mat-button (click)="router.navigateByUrl('orders/' + order.id)">Детали</button>
   </mat-card-actions>
 </mat-card>

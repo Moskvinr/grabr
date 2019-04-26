@@ -7,8 +7,7 @@ import { ProfileModule } from './profile/profile.module';
 @NgModule({
   imports: [
     CommonModule,
-    ScreensRoutingModule,
-    ProfileModule
+    ScreensRoutingModule
   ],
   declarations: [HomeComponent]
 })

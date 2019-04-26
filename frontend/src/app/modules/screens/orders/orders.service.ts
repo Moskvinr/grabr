@@ -9,6 +9,7 @@ import { first, map } from 'rxjs/operators';
 })
 export class OrdersService {
 
+
   // orders: Observable<Order[]>;
   // private _orders: BehaviorSubject<Order[]>;
   // private dataStore: {
@@ -84,11 +85,18 @@ export class OrdersService {
   }
 
   updateOrder(id: number, order: Order) {
-    console.log('kek');
     return this.http.put(`${environment.apiUrl}/order/update/${id}`, order);
   }
 
   deleteOrder(id: number) {
     return this.http.delete(`${environment.apiUrl}/order/delete/${id}`);
+  }
+
+  deliverOrder(id: number) {
+    return this.http.post(`${environment.apiUrl}/order/deliverorder/${id}`, null);
+  }
+
+  cancelDeliver(id: number) {
+    return this.http.delete(`${environment.apiUrl}/order/canceldeliver/${id}`);
   }
 }

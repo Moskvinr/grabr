@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'edit',
     component: ProfileEditComponent
+  },
+  {
+    path: ':id',
+    component: ProfileDetailsComponent
   }
 ];
 

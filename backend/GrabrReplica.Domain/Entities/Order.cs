@@ -67,6 +67,8 @@ namespace GrabrReplica.Domain.Entities
         public void SetDeliver(string deliveryMan) =>
             DeliveryManUserId = deliveryMan ?? throw new ArgumentNullException(nameof(deliveryMan));
 
+        public void CancelDeliver() => DeliveryManUserId = null; 
+
         public void CloseDelivery() => DeliveryStatus = DeliveryStatus.Closed;
 
         public void ConfirmOrder() => IsConfirmed = true;

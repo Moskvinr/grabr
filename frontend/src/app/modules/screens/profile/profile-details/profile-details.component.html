@@ -1,3 +1,13 @@
-<p>
-  profile-details works!
-</p>
+<div *ngIf="!isLoading">
+  <mat-tab-group mat-stretch-tabs class="mat-elevation-z4">
+    <mat-tab label="Информация о пользователе">
+      <app-main-info [userInfo]="profileDetails"></app-main-info>
+    </mat-tab>
+    <mat-tab label="Заказы пользователя">
+      <app-user-orders [userOrders]="profileDetails.userOrders" ></app-user-orders>
+    </mat-tab>
+    <mat-tab label="Доставленные товары">
+      <app-user-delivers [userDelivered]="profileDetails.ordersDelivered"></app-user-delivers>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -26,6 +26,10 @@ export class AccountService {
       .pipe(tap(userModel => this.setCookie(userModel)));
   }
 
+  public logout() {
+    this.cookieService.delete(TokenName);
+  }
+
   private setCookie(userModel: UserInfo) {
     const token = userModel.accessToken;
     this.cookieService.set(TokenName, token, 30, '/');

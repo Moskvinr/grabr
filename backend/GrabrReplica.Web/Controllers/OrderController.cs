@@ -1,9 +1,11 @@
 using System.Linq;
 using System.Threading.Tasks;
+using GrabrReplica.Application.Modules.Order.Commands.CancelDeliverOderCommand;
 using GrabrReplica.Application.Modules.Order.Commands.ConfirmOrderCommand;
 using GrabrReplica.Application.Modules.Order.Commands.CreateOrderCommand;
 using GrabrReplica.Application.Modules.Order.Commands.DeclineOrderCommand;
 using GrabrReplica.Application.Modules.Order.Commands.DeleteOrderCommand;
+using GrabrReplica.Application.Modules.Order.Commands.DeliverOrderCommand;
 using GrabrReplica.Application.Modules.Order.Commands.UpdateOrderCommand;
 using GrabrReplica.Application.Modules.Order.Queries.GetAllOrdersQuery;
 using GrabrReplica.Application.Modules.Order.Queries.GetOrderQuery;
@@ -62,6 +64,13 @@ namespace GrabrReplica.Web.Controllers
             return Ok(await Mediator.Send(new DeclineOrderCommand {OrderId = id}));
         }
 
+        [HttpPost("{id}")]
+        public async Task<IActionResult> DeliverOrder(int id)
+        {
+            await Mediator.Send(new DeliverOrderCommand {OrderId = id, UserId = HttpContext.GetUserId()});
+            return NoContent();
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -80,5 +89,13 @@ namespace GrabrReplica.Web.Controllers
         {
             return Ok(await Mediator.Send(new GetUserOrdersQuery() { UserId = id}));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> CancelDeliver(int id)
+        {
+            await Mediator.Send(new CancelDeliverOderCommand() {OrderId = id, UserId = HttpContext.GetUserId()});
+            return NoContent();
+        }
+        
     }
 }

@@ -98,7 +98,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.registerForm);
     if (this.registerForm.valid) {
       const loginModel: Registration = Object.assign({}, this.registerForm.value);
       this.accountService.registration(loginModel).subscribe(() => {

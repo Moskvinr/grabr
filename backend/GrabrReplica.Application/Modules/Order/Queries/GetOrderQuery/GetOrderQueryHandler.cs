@@ -24,7 +24,8 @@ namespace GrabrReplica.Application.Modules.Order.Queries.GetOrderQuery
         public async Task<OrderDto> Handle(GetOrderQuery request, CancellationToken cancellationToken)
         {
             var order = await _dbContext.Orders
-                .Include(x=>x.OrderBy)
+                .Include(x => x.OrderBy)
+                .Include(x=>x.DeliveryMan)
                 .FirstOrDefaultAsync(x => x.Id == request.OrderId, cancellationToken);
             return _mapper.Map<OrderDto>(order);
         }

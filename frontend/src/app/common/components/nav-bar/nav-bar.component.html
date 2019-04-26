@@ -24,6 +24,7 @@
       <span class="spacer"></span>
       <div *ngIf="!isAuth; else profile">
         <a [routerLink]="['account', 'login']">Войти</a>
+        <a [routerLink]="['account', 'registration']">Регистрация</a>
       </div>
     </mat-toolbar>
     <div class="center">

@@ -1,0 +1,22 @@
+<p>
+  Заказов доставлено: {{userDelivered.length}}
+</p>
+<div *ngIf="userDelivered">
+  <mat-card class="material-card" *ngFor="let order of userDelivered">
+    <mat-card-header (click)="details(order.id)">
+      <div mat-card-avatar class="material-header-image"></div>
+      <mat-card-title>{{order.name}}</mat-card-title>
+      <mat-card-subtitle>Цена продукта:{{order.productPrice}}RUB, {{order.count}}шт. Вознагрождение: {{order.reward}}RUB
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        {{order.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="router.navigateByUrl('orders/' + order.id)">Детали</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

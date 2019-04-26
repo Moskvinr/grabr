@@ -27,6 +27,7 @@ namespace GrabrReplica.Application.Modules.Order.Queries.GetAllOrdersQuery
         {
             return await _dbContext.Orders
                 .Include(x => x.OrderBy)
+                .Include(x=>x.DeliveryMan)
                 .Select(x => _mapper.Map<OrderDto>(x))
                 .ToListAsync(cancellationToken: cancellationToken);
         }

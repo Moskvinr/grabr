@@ -18,9 +18,6 @@ export class OrdersListComponent implements OnInit {
     this.orders = this.orderService.getAll();
   }
 
-  createNew() {
-  }
-
   details(id: number) {
     this.router.navigateByUrl(`orders/${id}`);
   }

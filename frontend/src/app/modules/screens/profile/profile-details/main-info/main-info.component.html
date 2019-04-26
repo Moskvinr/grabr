@@ -1,0 +1,10 @@
+<p>
+  {{userInfo.firstName}} {{userInfo.secondName}}
+</p>
+<p>
+  Эллектронная почта: {{userInfo.email}}
+</p>
+
+<div *ngIf="canLogout">
+  <button mat-flat-button color="primary" (click)="logout()">Выйти</button>
+</div>

@@ -23,8 +23,8 @@ namespace GrabrReplica.Application.Infrastructure.AutoMapper
             CreateMap<User, RegisterAccountCommand>();
             CreateMap<OrderDto, Order>();
             CreateMap<Order, OrderDto>();
-            CreateMap<User, OrderByDto>();
-            CreateMap<OrderByDto, User>();
+            CreateMap<User, OrderUserDto>();
+            CreateMap<OrderUserDto, User>();
             CreateMap<ProfileDto, User>();
             CreateMap<User, ProfileDto>();
         }

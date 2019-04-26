@@ -3,7 +3,9 @@ class Order {
     public name: string;
     public description: string;
     public orderByUserId?: string;
-    public orderBy?: OrderByDto;
+    public orderBy?: OrderUser;
+    public deliveryManUserId?: string;
+    public deliveryMan?: OrderUser;
     public productPrice: number;
     public productLink: string;
     public finalPrice?: number;
@@ -21,7 +23,7 @@ enum DeliveryStatus {
     Closed
 }
 
-class OrderByDto {
+class OrderUser {
     public id?: string;
     public firstName?: string;
     public secondName?: string;
