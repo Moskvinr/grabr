@@ -18,6 +18,8 @@ namespace GrabrReplica.Persistance
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Dialog> Dialogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -17,5 +17,7 @@ namespace GrabrReplica.Domain.Entities
         
         public virtual ICollection<Order> UserOrders { get; set; }
         public virtual ICollection<Order> OrdersDelivered { get; set; }
+        
+        public virtual ICollection<Dialog> Dialogs { get; set; }
     }
 }

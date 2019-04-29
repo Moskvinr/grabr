@@ -22,7 +22,7 @@ namespace GrabrReplica.Application.Modules.Order.Commands.UpdateOrderCommand
                 .FirstOrDefaultAsync(o => o.Id == request.OrderId, cancellationToken);
 
             order.UpdateOrder(request.Name, request.Description, request.ProductPrice, request.ProductLink,
-                request.Reward, request.Count);
+                request.Reward, request.Count, request.ProductImage);
 
             _dbContext.Orders.Update(order);
 

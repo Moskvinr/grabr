@@ -36,8 +36,9 @@ export class NewOrderComponent implements OnInit {
   }
 
   submit(order: Order) {
-    this.orderService.createOrder(order);
-    this.navigateBack();
+    this.orderService.createOrder(order).subscribe(() => {
+      this.navigateBack();
+    });
   }
 
 }

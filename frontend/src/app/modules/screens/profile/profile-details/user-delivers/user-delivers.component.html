@@ -9,7 +9,7 @@
       <mat-card-subtitle>Цена продукта:{{order.productPrice}}RUB, {{order.count}}шт. Вознагрождение: {{order.reward}}RUB
       </mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <img mat-card-image src="{{order.productImage}}" alt="Photo of a smartphone">
     <mat-card-content>
       <p>
         {{order.description}}

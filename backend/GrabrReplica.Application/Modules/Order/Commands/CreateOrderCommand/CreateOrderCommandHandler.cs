@@ -34,6 +34,7 @@ namespace GrabrReplica.Application.Modules.Order.Commands.CreateOrderCommand
                 request.ProductPrice,
                 request.ProductLink,
                 request.Reward,
-                request.Count);
+                request.Count,
+                request.ProductImage);
     }
 }

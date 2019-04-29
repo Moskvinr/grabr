@@ -6,24 +6,30 @@
       <mat-card-subtitle>Цена продукта:{{order.productPrice}}RUB, {{order.count}}шт. Вознагрождение: {{order.reward}}RUB
       </mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <img mat-card-image src="{{order.productImage}}" alt="Photo of a Shiba Inu">
     <mat-card-content>
       <p>
         {{order.description}}
       </p>
     </mat-card-content>
     <mat-card-actions *ngIf="canDeliver">
-      <button mat-button (click)="deliverOrder(order.id)">Доставить</button>
+      <button mat-raised-button color="primary" (click)="deliverOrder(order.id)">Доставить</button>
+    </mat-card-actions>
+    <mat-card-actions *ngIf="canDoActions">
+      <button mat-button (click)="edit()">Редактировать</button>
+      <button mat-raised-button color="warn" (click)="delete()">Удалить</button>
     </mat-card-actions>
     <mat-card-actions *ngIf="canCancelDeliver">
-      <button mat-button (click)="cancelDeliver()">
+      <button mat-raised-button color="warn" (click)="cancelDeliver()">
         Отменить доставку
       </button>
     </mat-card-actions>
     <mat-divider></mat-divider>
     <mat-card-footer>
-      <p>Ссылка на продукт: {{order.productLink}}</p>
-      <p>Заказчик {{order.orderBy.firstName}} {{order.orderBy.secondName}}</p>
+      <p>Ссылка на магазин: {{order.productLink}}</p>
+      <a [routerLink]="['/', 'profile',order.orderBy.id]">
+        <p>Заказчик {{order.orderBy.firstName}} {{order.orderBy.secondName}}</p>
+      </a>
     </mat-card-footer>
   </mat-card>
 </div>

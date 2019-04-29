@@ -8,6 +8,7 @@ class Order {
     public deliveryMan?: OrderUser;
     public productPrice: number;
     public productLink: string;
+    public productImage?: string;
     public finalPrice?: number;
     public reward: number;
     public count: number;

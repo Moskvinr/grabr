@@ -8,6 +8,7 @@
       <a mat-list-item [routerLink]="['/home']">На главную</a>
       <a mat-list-item [routerLink]="['/orders']">Заказы</a>
       <div *ngIf="isAuth">
+        <a mat-list-item [routerLink]="['dialogs']">Диалоги</a>
         <a mat-list-item [routerLink]="['profile']">Профиль</a>
       </div>
       <div *ngIf="!isAuth">
@@ -20,7 +21,7 @@
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <a [routerLink]="['/home']">frontend</a>
+      <a [routerLink]="['/home']">Grabr</a>
       <span class="spacer"></span>
       <div *ngIf="!isAuth; else profile">
         <a [routerLink]="['account', 'login']">Войти</a>

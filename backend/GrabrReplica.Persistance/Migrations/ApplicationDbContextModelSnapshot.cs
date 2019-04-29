@@ -19,6 +19,45 @@ namespace GrabrReplica.Persistance.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("GrabrReplica.Domain.Entities.Dialog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstUserId");
+
+                    b.Property<string>("SecondUserId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Dialogs");
+                });
+
+            modelBuilder.Entity("GrabrReplica.Domain.Entities.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("DialogId");
+
+                    b.Property<string>("MessageBody")
+                        .IsRequired();
+
+                    b.Property<DateTime>("SentTime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DialogId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("GrabrReplica.Domain.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -44,6 +83,8 @@ namespace GrabrReplica.Persistance.Migrations
                         .HasMaxLength(15);
 
                     b.Property<string>("OrderByUserId");
+
+                    b.Property<string>("ProductImage");
 
                     b.Property<string>("ProductLink");
 
@@ -269,6 +310,20 @@ namespace GrabrReplica.Persistance.Migrations
                     b.HasIndex("UserId1");
 
                     b.HasDiscriminator().HasValue("UserRole");
+                });
+
+            modelBuilder.Entity("GrabrReplica.Domain.Entities.Dialog", b =>
+                {
+                    b.HasOne("GrabrReplica.Domain.Entities.User")
+                        .WithMany("Dialogs")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GrabrReplica.Domain.Entities.Message", b =>
+                {
+                    b.HasOne("GrabrReplica.Domain.Entities.Dialog", "Dialog")
+                        .WithMany("Messages")
+                        .HasForeignKey("DialogId");
                 });
 
             modelBuilder.Entity("GrabrReplica.Domain.Entities.Order", b =>

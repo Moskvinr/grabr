@@ -23,6 +23,11 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: './profile/profile.module#ProfileModule',
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'dialogs',
+    loadChildren: './dialogs/dialogs.module#DialogsModule',
+    canActivate: [AuthGuard]
   }
 ];
 

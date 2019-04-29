@@ -22,6 +22,10 @@ export class MainInfoComponent implements OnInit {
     });
   }
 
+  // toDialogs() {
+  //   this.router.navigateByUrl()
+  // }
+
   get canLogout() {
     return this.userInfo.id === this.authService.getUserId;
   }

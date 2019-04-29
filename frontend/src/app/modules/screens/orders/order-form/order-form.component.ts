@@ -93,6 +93,17 @@ export class OrderFormComponent implements OnInit {
           type: 'text'
         }
       },
+      {
+        key: 'productImage',
+        type: 'input',
+        defaultValue: this.order.productImage,
+        templateOptions: {
+          label: 'Ссылка на изображение товара',
+          placeholder: 'Введите ссылку на изображение товара',
+          required: false,
+          type: 'text'
+        }
+      },
     ];
   }
 

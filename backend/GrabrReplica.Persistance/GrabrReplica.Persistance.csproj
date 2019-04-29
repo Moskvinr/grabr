@@ -3,6 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190429094928_AddedDialogs.cs" />
+    <Compile Remove="Migrations\20190429094928_AddedDialogs.Designer.cs" />
+    <Compile Remove="Migrations\20190429095455_AddedDialogs.cs" />
+    <Compile Remove="Migrations\20190429095455_AddedDialogs.Designer.cs" />
+    <Compile Remove="Migrations\20190429095837_AddedDialogs.cs" />
+    <Compile Remove="Migrations\20190429095837_AddedDialogs.Designer.cs" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />

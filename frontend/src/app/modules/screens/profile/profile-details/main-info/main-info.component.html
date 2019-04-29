@@ -8,3 +8,6 @@
 <div *ngIf="canLogout">
   <button mat-flat-button color="primary" (click)="logout()">Выйти</button>
 </div>
+<div *ngIf="!canLogout">
+  <button mat-flat-button color="primary" (click)="toDialogs()">Написать</button>
+</div>

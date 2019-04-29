@@ -11,5 +11,6 @@ namespace GrabrReplica.Application.Modules.Order.Commands.CreateOrderCommand
         public string ProductLink { get; set; }
         public decimal Reward { get; set; }
         public int Count { get; set; }
+        public string ProductImage { get; set; }
     }
 }
