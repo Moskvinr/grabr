@@ -27,7 +27,7 @@ namespace GrabrReplica.Domain.Entities
         public Order(string name, string description, string orderByUserId, decimal productPrice, string productLink,
             decimal reward, int count,
             string productImage =
-                "https://drop.ndtv.com/TECH/product_database/images/104201774205PM_635_google_pixel_2_xl.jpeg?downsize=770:*&output-quality=70&output-format=webp")
+                @"https://drop.ndtv.com/TECH/product_database/images/104201774205PM_635_google_pixel_2_xl.jpeg?downsize=770:*&output-quality=70&output-format=webp")
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Description = description ?? throw new ArgumentNullException(nameof(description));

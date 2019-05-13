@@ -32,7 +32,7 @@ export class OrderDetailsComponent implements OnInit {
 
   deliverOrder(id: number) {
     this.orderService.deliverOrder(id).subscribe(() => {
-      this.router.navigateByUrl('../');
+      this.router.navigateByUrl('/');
     });
   }
 
@@ -50,7 +50,7 @@ export class OrderDetailsComponent implements OnInit {
 
   cancelDeliver() {
     this.orderService.cancelDeliver(this.order.id).subscribe(() => {
-      this.router.navigateByUrl('../');
+      this.router.navigateByUrl('/');
     });
   }
 

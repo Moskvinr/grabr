@@ -1,23 +1,25 @@
-class Dialog {
+export class Dialog {
     public id?: number;
     public firstUser?: User;
     public secondUser?: User;
     public messages: Message[];
 }
 
-class User {
+export class User {
     public id?: string;
     public firstName?: string;
     public secondName?: string;
 }
 
-class Message {
+export class Message {
+    constructor() { }
     public id: number;
     public messageBody: string;
-    sentTime: Date;
+    public sentTime: Date;
 }
 
-class SendMessage {
+export class SendMessage {
+    constructor() {}
     dialogId?: number;
     messageFrom: string;
     messageTo: string;

@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/common/services/auth.service';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-main-info',
@@ -10,10 +11,13 @@ import { AuthService } from 'src/app/common/services/auth.service';
 export class MainInfoComponent implements OnInit {
 
   @Input() userInfo: any;
+  profileId: string;
 
-  constructor(public router: Router, private authService: AuthService) { }
+  constructor(public router: Router, private authService: AuthService, private route: ActivatedRoute) { }
+
 
   ngOnInit() {
+    this.profileId = this.route.snapshot.params['id'];
   }
 
   logout() {
@@ -22,9 +26,9 @@ export class MainInfoComponent implements OnInit {
     });
   }
 
-  // toDialogs() {
-  //   this.router.navigateByUrl()
-  // }
+  toDialogs() {
+    this.router.navigateByUrl(`/dialogs/${this.profileId}`);
+  }
 
   get canLogout() {
     return this.userInfo.id === this.authService.getUserId;

@@ -3,6 +3,7 @@ import { DialogsService } from '../dialogs.service';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { finalize } from 'rxjs/operators';
+import { Message, Dialog } from '../dialog.model';
 
 @Component({
   selector: 'app-dialogs-list',
@@ -28,15 +29,10 @@ export class DialogsListComponent implements OnInit {
       .subscribe(dialogs => {
         dialogs.forEach(item => {
           return item.messages.sort((a: Message, b: Message) => {
-            return this.getTime(a.sentTime) - this.getTime(b.sentTime);
+            return b.id - a.id;
           });
         });
         this.dialogs = dialogs;
       });
   }
-
-  private getTime(date?: Date) {
-    return date != null ? date.getTime() : 0;
-  }
-
 }

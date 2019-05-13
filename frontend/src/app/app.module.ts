@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FormlyModule } from '@ngx-formly/core';
+import { NgxUiLoaderModule, NgxUiLoaderRouterModule, NgxUiLoaderHttpModule  } from  'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { FormlyModule } from '@ngx-formly/core';
     BrowserAnimationsModule,
     MaterialModule,
     FormlyModule.forRoot(),
-    FormlyMaterialModule
+    FormlyMaterialModule,
+    NgxUiLoaderModule,
+    NgxUiLoaderHttpModule
   ],
   providers: [
     CookieService,

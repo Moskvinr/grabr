@@ -1,3 +1,20 @@
-<p>
-  dialog works!
-</p>
+<div *ngIf="!loading">
+  <div class="center">
+    <div *ngFor="let message of dialog.messages">
+      <div *ngIf="message.messageFrom === dialog.firstUser.id">
+        {{dialog.firstUser.firstName}} {{dialog.firstUser.secondName}} в {{message.sentTime}}:
+        <br />
+        {{message.messageBody}}
+      </div>
+      <div *ngIf="message.messageFrom === dialog.secondUser.id">
+        {{dialog.secondUser.firstName}} {{dialog.secondUser.secondName}} в {{message.sentTime}}:
+        <br />
+        {{message.messageBody}}
+      </div>
+    </div>
+    <mat-form-field class="full-width">
+      <textarea [(ngModel)]="message" matInput placeholder="Отправьте сообщение"></textarea>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" (click)="sendMessage()">Отправить</button>
+  </div>
+</div>

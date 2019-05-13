@@ -25,12 +25,11 @@ namespace GrabrReplica.Application.Modules.Dialog.Commands.SendMessageCommand
                     cancellationToken: cancellationToken))
             {
                 var dialog = await
-                    _dbContext.Dialogs.FirstOrDefaultAsync(x => x.Id == request.DialogId.Value, cancellationToken);
-                dialog.Messages.Add(new Message()
-                {
-                    SentTime = request.SentTime,
-                    MessageBody = request.MessageBody
-                });
+                    _dbContext
+                        .Dialogs
+                        .Include(x => x.Messages)
+                        .FirstOrDefaultAsync(x => x.Id == request.DialogId.Value, cancellationToken);
+                dialog.Messages.Add(GetMessage(request));
             }
 
             else if (!request.DialogId.HasValue && await _dbContext.Dialogs.AnyAsync(x =>
@@ -39,14 +38,10 @@ namespace GrabrReplica.Application.Modules.Dialog.Commands.SendMessageCommand
             {
                 var dialog = await _dbContext.Dialogs.FirstOrDefaultAsync(x =>
                     x.FirstUserId == request.MessageFrom || x.SecondUserId == request.MessageFrom, cancellationToken);
-                dialog.Messages.Add(new Message()
-                {
-                    SentTime = request.SentTime,
-                    MessageBody = request.MessageBody
-                });
+                dialog.Messages.Add(GetMessage(request));
             }
             else if (!request.DialogId.HasValue && !await _dbContext.Dialogs.AnyAsync(x =>
-                              x.FirstUserId == request.MessageFrom || x.SecondUserId == request.MessageFrom,
+                             x.FirstUserId == request.MessageFrom || x.SecondUserId == request.MessageFrom,
                          cancellationToken))
             {
                 await _dbContext.Dialogs.AddAsync(new Domain.Entities.Dialog()
@@ -55,11 +50,7 @@ namespace GrabrReplica.Application.Modules.Dialog.Commands.SendMessageCommand
                     SecondUserId = request.MessageTo,
                     Messages = new List<Message>()
                     {
-                        new Message()
-                        {
-                            SentTime = request.SentTime,
-                            MessageBody = request.MessageBody
-                        }
+                        GetMessage(request)
                     }
                 }, cancellationToken);
             }
@@ -67,6 +58,16 @@ namespace GrabrReplica.Application.Modules.Dialog.Commands.SendMessageCommand
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
+        }
+
+        private Message GetMessage(SendMessageCommand request)
+        {
+            return new Message()
+            {
+                MessageBody = request.MessageBody,
+                SentTime = DateTime.Now.ToString("G"),
+                MessageFrom = request.MessageFrom
+            };
         }
     }
 }

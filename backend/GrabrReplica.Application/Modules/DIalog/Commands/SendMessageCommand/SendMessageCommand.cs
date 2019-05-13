@@ -9,6 +9,6 @@ namespace GrabrReplica.Application.Modules.Dialog.Commands.SendMessageCommand
         public string MessageFrom { get; set; }
         public string MessageTo { get; set; }
         public string MessageBody { get; set; }
-        public DateTime SentTime { get; set; }
+//        public DateTime SentTime { get; set; }
     }
 }

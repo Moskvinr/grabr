@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 import { DialogsService } from './dialogs.service';
 import { DialogsRoutingModule } from './dialogs-routing.module';
 import { MaterialModule } from 'src/app/material.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [DialogsListComponent, DialogComponent],
   imports: [
     CommonModule,
     DialogsRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [DialogsService]
 })

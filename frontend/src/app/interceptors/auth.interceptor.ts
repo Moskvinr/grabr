@@ -33,7 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError(err => {
                 if (err.status === 401) {
-                    this.cookie.delete(TokenName);
+                    this.cookie.delete(TokenName, '/');
                     // tslint:disable-next-line:quotemark
                     this.router.navigateByUrl("/account/login");
                 }

@@ -4,14 +4,16 @@ using GrabrReplica.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GrabrReplica.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190513185725_MessagesFromFieldAdded")]
+    partial class MessagesFromFieldAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +53,7 @@ namespace GrabrReplica.Persistance.Migrations
 
                     b.Property<string>("MessageFrom");
 
-                    b.Property<string>("SentTime");
+                    b.Property<DateTime>("SentTime");
 
                     b.HasKey("Id");
 

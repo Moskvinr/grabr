@@ -1,18 +1,17 @@
-<p>
-  dialogs-list works!
-</p>
 <div *ngIf="!isLoading">
-  <a [routerLink]="[123]">
-    <mat-card class="material-card">
-      <mat-card-header>
-        <mat-icon mat-card-avatar svgIcon="person"></mat-icon>
-        <mat-card-title>dialog.secondUser.firstName dialog.secondUser.secondName</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p style="margin-top: 10px;">
-          Последнее сообщение
-        </p>
-      </mat-card-content>
-    </mat-card>
-  </a>
+  <div *ngFor="let dialog of dialogs">
+    <a [routerLink]="[dialog.id]">
+      <mat-card class="material-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar svgIcon="person"></mat-icon>
+          <mat-card-title>{{dialog.secondUser.firstName}} {{dialog.secondUser.secondName}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p style="margin-top: 10px;">
+            {{dialog.messages[0].messageBody}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </a>
+  </div>
 </div>
